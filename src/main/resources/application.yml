@@ -1,9 +1,11 @@
 spring:
+#  profiles:
+#    active: local
   application:
     name: inss-service
   data:
     mongodb:
-      uri: mongodb+srv://devcarlosruan:lckdLSke2RdTSN9v@microsservico.jteqv7e.mongodb.net/microsservico?authSource=admin
+      uri: mongodb+srv://${MONGO_USER}:${MONGO_PWD}@${MONGO_HOST}/${MONGO_DB}?authSource=admin
 
 server:
   port: ${PORT:0}
@@ -19,13 +21,13 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: https://tc2-microservice-discovery-server.onrender.com/eureka/
+      defaultZone: ${EUREKA_SERVER_URL}/eureka/
   instance:
     instance-id: ${spring.application.name}:${eureka.application.instance-id:${random.value}}
-    hostname: tc2-microservico-inss.onrender.com
+    hostname: ${RENDER_EXTERNAL_HOSTNAME}
     non-secure-port-enabled: false
     secure-port-enabled: true
     secure-port: 443
     prefer-ip-address: false
-    status-page-url: https://tc2-microservico-inss.onrender.com/actuator/info
-    health-check-url: https://tc2-microservico-inss.onrender.com/actuator/health
+    status-page-url: ${RENDER_EXTERNAL_URL}/actuator/info
+    health-check-url: ${RENDER_EXTERNAL_URL}/actuator/health
